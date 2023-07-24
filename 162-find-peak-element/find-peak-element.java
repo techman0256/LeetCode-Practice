@@ -13,11 +13,11 @@ class Solution {
                 return mid;
             }
 
-            if (nums[mid] > nums[mid - 1]) {
-                left = mid + 1;
+            if (nums[mid] > nums[mid + 1]) {
+                right = mid - 1;
             }
             else {
-                right = mid - 1;
+                left = mid + 1;
             }
         }
 
