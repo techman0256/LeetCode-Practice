@@ -1,12 +1,11 @@
 class Solution {
     public int missingNumber(int[] nums) {
-        Arrays.sort(nums);
+        int sum = ((nums.length + 1) * (nums.length)) / 2;
         int i=0;
+        int prefixSum = 0;
         for (i=0; i < nums.length; i++) {
-            if (i != nums[i]) {
-                return i;
-            }
+            prefixSum += nums[i];
         }
-        return i;
+        return sum - prefixSum;
     }
 }
