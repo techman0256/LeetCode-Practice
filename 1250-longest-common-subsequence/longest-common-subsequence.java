@@ -3,27 +3,24 @@ class Solution {
         int n = text1.length();
         int m = text2.length();
 
-        int prev[] = new int[m+1];
-        int curr[] = new int[m+1];
+        int dp[][] = new int[n + 1][m + 1];
 
-        // base case is prev[i] = 0 for 0 < i < m + 1
+        // for (int i=0; i < m; i++) {
+        //     if (text1.charAt(0) == text2.charAt(i)) {
+        //         dp[0][i] = 1;
+        //     }
+        // }
 
-        for (int i=1; i <= n; i++) {
-            for (int j=1; j <=m; j++) {
-                int take = Integer.MIN_VALUE;
-                if (text1.charAt(i-1) == text2.charAt(j-1)) {
-                    take = 1 + prev[j-1];
+        for (int i=0; i < n; i++) {
+            for (int j=0; j < m; j++) {
+                if (text1.charAt(i) == text2.charAt(j)) {
+                    dp[i + 1][j + 1] = 1 + dp[i][j];
+                } else {
+                    dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
                 }
-
-                int left = curr[j-1];
-                int right = prev[j];
-
-                curr[j] = Math.max(take, Math.max(left, right));
             }
-            prev = curr;
-            curr = new int[m+1];
         }
-        return prev[m];
-        
-    }  
+
+        return dp[n][m];
+    }
 }
