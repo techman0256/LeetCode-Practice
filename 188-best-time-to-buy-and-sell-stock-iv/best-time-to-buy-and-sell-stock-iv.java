@@ -3,33 +3,61 @@ class Solution {
         int n = prices.length;
         
         int dp[][][] = new int[n + 1][2][k + 1];
-        for (int i=0; i <= n; i++) {
-            for (int j=0; j < 2; j++) {
-                Arrays.fill(dp[i][j], -1);
-            }
-        }
+        // for (int i=0; i <= n; i++) {
+        //     for (int j=0; j < 2; j++) {
+        //         Arrays.fill(dp[i][j], -1);
+        //     }
+        // }
         // // Base Case
         // for (int i=1; i <= k; i++) {
         //     dp[0][0][i] = -prices[0];
         // } 
         
-        // for (int i=1; i < n; i++) {
+        // for (int i=1; i <= n; i++) {
         //     for (int j=0; j < 2; j++) {
-        //         for (int l=1; l <= k; l++) {
+        //         for (int l = 1; l <= k; l++) {
         //             int buy = 0, sell = 0, hold = 0;
+        //             // System.out.println(i);
         //             if (j == 0) {
-        //                 buy = Math.max(-prices[i] + dp[i - 1][1][l], dp[i - 1][j][l]);
+        //                 buy = -prices[i - 1] + dp[i - 1][1][l];
         //             } else {
-        //                 sell = Math.max(prices[i] + dp[i - 1][0][l], dp[i - 1][j][l]);
+        //                 sell = prices[i - 1] + dp[i - 1][0][l - 1];
         //             }
-        //             // hold = Math.max(dp[i - 1][0][l], dp[i - 1][1][l]);
-        //             dp[i][j][l] = sell + buy;
+        //             hold = dp[i - 1][j][l];
+        //             dp[i][j][l] = Math.max(hold, sell + buy);
         //         }
         //     }
         // }
 
-        // return dp[n - 1][0][k];
-        return fx(0, 0, k, prices, dp);
+        for (int i=n - 1; i >= 0; i--) {
+            for (int j=0; j < 2; j++) {
+                for (int l = 1; l <= k; l++) {
+                    int buy = 0, sell = 0, hold = 0;
+                    System.out.println(i);
+                    if (j == 0) {
+                        buy = -prices[i] + dp[i + 1][1][l];
+                    } else {
+                        sell = prices[i] + dp[i + 1][0][l - 1];
+                    }
+                    hold = dp[i + 1][j][l];
+                    dp[i][j][l] = Math.max(hold, sell + buy);
+                }
+            }
+        }
+
+        for (int i=0; i <=n; i++) {
+            for (int j=0; j < 2; j++) {
+                for (int l=0; l <= k; l++) {
+                    System.out.print(dp[i][j][l] + " "); 
+                }
+                System.out.println();
+            }
+            System.out.println(" n");
+        }
+
+
+        return dp[0][0][k];
+        // return fx(0, 0, k, prices, dp);
         
     }
     static int fx(int idx, int flag, int count, int prices[], int dp[][][]) {
