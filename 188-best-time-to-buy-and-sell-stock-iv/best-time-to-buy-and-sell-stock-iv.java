@@ -45,17 +45,6 @@ class Solution {
             }
         }
 
-        for (int i=0; i <=n; i++) {
-            for (int j=0; j < 2; j++) {
-                for (int l=0; l <= k; l++) {
-                    System.out.print(dp[i][j][l] + " "); 
-                }
-                System.out.println();
-            }
-            System.out.println(" n");
-        }
-
-
         return dp[0][0][k];
         // return fx(0, 0, k, prices, dp);
         
