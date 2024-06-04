@@ -1,10 +1,10 @@
 struct Compare {
     bool operator()(const pair<pair<int, int>, int>& p1, const pair<pair<int, int>, int>& p2) {
         // Compare based on the second element of the inner pair
-        // if (p1.first.second == p2.first.second) {
-            return p1.second > p2.second;
-        // }
-        // return p1.first.second > p2.first.second;
+        if (p1.first.second == p2.first.second) {
+             p1.second > p2.second;
+        }
+        return p1.first.second > p2.first.second;
     }
     };
 
@@ -19,15 +19,15 @@ public:
         }
 
         vector<int> dist(n, INT_MAX);
-        priority_queue<pair<pair<int, int>, int>, vector<pair<pair<int, int>, int>>, Compare> bfs;
+        queue<pair<pair<int, int>, int>> bfs;
 
         bfs.push( {{src, 0}, -1} );
         dist[src] = 0;
 
         while ( !bfs.empty() ) {
-            int node = bfs.top().first.first;
-            int price = bfs.top().first.second;
-            int stops = bfs.top().second;
+            int node = bfs.front().first.first;
+            int price = bfs.front().first.second;
+            int stops = bfs.front().second;
             bfs.pop();
             cout << node << " " << price << " " << stops << endl;
                 // if (stops > k) continue;
