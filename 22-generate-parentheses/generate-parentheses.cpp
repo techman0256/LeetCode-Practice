@@ -1,32 +1,31 @@
 class Solution {
 public:
-    void generate(string str, int open, int close, stack<char> top, int n, vector<string> &ans) {
-        if (str.size() == 2 * n) {
-            cout << "lol";
-            ans.push_back(str);
-           
+    static void generate(string now, int open, int close, int n, vector<string> &ans) {
+        // base case
+        if (close == n) {
+            ans.push_back(now);
+            return;
         }
-        
-        int len = str.length();
-        // cout << top.size() << " " << len << endl;
 
-        if (top.size() < n and open < n) {
-            top.push('(');
-            generate(str + '(', open +1, close, top, n, ans);
+        // int last = now[now.length() - 1];
+        if (open == close && open < n) {
+            generate(now + '(', open + 1, close, n, ans);
+        } else if (open > close ) {
+            if (open < n) {
+                generate(now + '(', open + 1, close, n, ans);
+            }
+            generate(now + ')', open, close + 1, n, ans);
         }
-        if (!top.empty() and top.top() == '(' and close < open) {
-            top.pop();
-            cout << open <<  " " << close << endl;
-            generate(str + ')', open, close + 1, top, n, ans);
-        }
-        
-        // return;
+        return;
+       
     }
     vector<string> generateParenthesis(int n) {
+        // stack<char> stk;
         vector<string> ans;
-        stack<char> top;
-        // top.push('(');
-        generate("", 0, 0, top, n, ans);
-        return ans;
+
+        generate("", 0, 0, n, ans);
+        return ans; 
+
+
     }
 };
