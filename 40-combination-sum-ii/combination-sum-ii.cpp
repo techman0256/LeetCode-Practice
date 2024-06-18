@@ -2,6 +2,7 @@ class Solution {
 public:
     static void comb(int idx, vector<int> subset, int target, vector<int> &candidates, set<vector<int>> &set) {
         if (target == 0) {
+            cout << endl;
             set.insert(subset);
             return;
         }
@@ -11,14 +12,17 @@ public:
         }
 
 
-        for (int i=idx; i < candidates.size(); i++) {
-            if (i > idx && candidates[i] == candidates[i - 1]) continue;
-            if (candidates[i] > target) break;
-
-            subset.push_back(candidates[i]);
-            comb(i + 1, subset, target - candidates[i], candidates, set);
+        // comb(idx + 1, subset, target, candidates, set);
+        if (candidates[idx] <= target) {
+            subset.push_back(candidates[idx]);
+            comb(idx + 1, subset, target - candidates[idx], candidates, set);
             subset.pop_back();
         }
+        int j=idx;
+        while (j < candidates.size() && candidates[j] == candidates[idx]) {
+            j++;
+        }
+        comb(j, subset, target, candidates, set);
 
         return;
     }
@@ -27,7 +31,7 @@ public:
         vector<vector<int>> ans;
         set<vector<int>> ss;
         int sum = 0;
-        cout << candidates.size();
+
         for (int i=0; i < candidates.size(); i++) {
             sum += candidates[i];
         }
