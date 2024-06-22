@@ -17,8 +17,8 @@ public:
         }
 
         traversal(root->left, row + 1, mpp);
-        mpp[row] = root->val;
         traversal(root->right, row + 1, mpp);
+        mpp[row] = root->val;
 
         return;
     }
