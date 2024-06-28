@@ -1,27 +1,36 @@
 class Solution {
 public:
+    static int minHP(int row, int col, vector<vector<int>> &dp, vector<vector<int>>& dungeon) {
+        int n = dungeon.size();
+        int m = dungeon[0].size();
 
-    int n, m;
-    int dp[201][201];
-    int f(int i, int j, vector<vector<int>> &dungeon) {
+        if (row >= n || col >= m) return INT_MAX;
+        if (row == n - 1 && col == m - 1) {
+            if (dungeon[row][col] > 0) return 1;
+            else return 1 - dungeon[row][col];
+        }
 
-        if(i >= n || j >= m) return 1e9;
+        if (dp[row][col] != -1) {
+            // cout << "HI" << endl;
+            return dp[row][col];
+        }
 
-        if(i == n-1 && j == m-1) return dungeon[i][j] > 0 ? 1 : 1 - dungeon[i][j];
+        int down = minHP(row, col + 1, dp, dungeon);
+        int right = minHP(row + 1, col, dp, dungeon);
+        int ans = min(down, right) - dungeon[row][col];
 
-        if(dp[i][j] != -1) return dp[i][j];
+        if (ans > 0) return dp[row][col] = ans;
+        else return dp[row][col] = 1;
 
-        int down = f(i+1, j, dungeon);
-        int right = f(i, j+1, dungeon);
-
-        int ans = min(down, right) - dungeon[i][j];
-
-        return dp[i][j] = ans > 0 ? ans : 1;
     }
-
     int calculateMinimumHP(vector<vector<int>>& dungeon) {
-        n = dungeon.size(), m = dungeon[0].size();
-        memset(dp, -1, sizeof(dp));
-        return f(0,0,dungeon);
+        int n = dungeon.size();
+        int m = dungeon[0].size();
+
+        vector<vector<int>> dp(n, vector<int> (m, -1));
+
+
+        return minHP(0, 0, dp, dungeon);
     }
+    
 };
