@@ -14,7 +14,7 @@ public:
                 right = mid;
             }
         }
-        if ( right == -1 || right == n || nums[right] != target ) {
+        if ( right == n || nums[right] != target ) {
             ans.push_back(-1);
         } else {
             
@@ -33,7 +33,7 @@ public:
                 right = mid;
             }
         }
-        if ( left == -1 || left == n || nums[left] != target) {
+        if ( left == -1 || nums[left] != target) {
             ans.push_back(-1);
         } else {
             ans.push_back(left);
