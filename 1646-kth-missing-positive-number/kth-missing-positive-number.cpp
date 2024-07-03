@@ -13,31 +13,8 @@ public:
                 right = mid - 1;
             }
         }
-        cout << left << " " << right << endl;
-        int missing_cnt = 0;
-        int missing = 0; 
-        if (left == n) {
-            missing_cnt = arr[right] - right - 1;
-            missing = arr[right];
-            while (missing_cnt != k) {
-                missing++;
-                missing_cnt++;
-            }
-        } else {
-            // cout << " hi " << endl;
-            missing_cnt = arr[left] - left - 1;
-            missing = arr[left];
-            // cout << missing_cnt << " " << k << endl;
-            while (missing_cnt != k - 1) {
-                cout << missing << endl;
-                missing--;
-                missing_cnt--;
-            }
-        }
-        
-        // arr[left];
         
 
-        return missing;
+        return right + k + 1;
     }
 };
