@@ -10,8 +10,9 @@ public:
         int i = 0;
         for (i=1; i < n; i++) {
             if (almostEqual(word[i], word[i - 1])) {
-                word[i] = '#';
+                // word[i] = '#';
                 ops++;
+                i++;
             }
 
         }
