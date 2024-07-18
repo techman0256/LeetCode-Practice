@@ -12,16 +12,14 @@
 class Solution {
 public:
     vector<int> countDepth(TreeNode* root, int distance, int &ans) {
-        if (root == NULL) {
-            vector<int> none;
-            none.push_back(0);
-            return none;
+        vector<int> ret, left, right;
+
+        if (root->left) {
+            left = countDepth(root->left, distance, ans);
         }
-
-        vector<int> ret;
-
-        vector<int> left = countDepth(root->left, distance, ans);
-        vector<int> right = countDepth(root->right, distance, ans);
+        if (root->right) {
+            right = countDepth(root->right, distance, ans);
+        }
 
         for ( auto l : left ) {
             for (auto r : right) {
@@ -36,20 +34,15 @@ public:
         }
 
         for ( auto l : left ) {
-            if (l > 0) {
+            if (l > 0 && l < distance) {
                 ret.push_back(l + 1);
             }
         }
         for ( auto r : right ) {
-            if (r > 0) {
-                ret.push_back(r + 1);
+            if (r > 0 && r < distance) {
+                ret.push_back(r + 1);   
             }
         }
-        // cout << root->val << endl;
-        // for (auto r : ret) {
-        //     cout << r << " " ;
-        // }
-        // cout << endl;
 
         return ret;
 
