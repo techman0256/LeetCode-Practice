@@ -14,8 +14,8 @@ public:
                 // cout << bool(mpp.find(s[end]) == mpp.end()) << endl;
                 mpp[s[end]] = 1;
                 end ++;
-                ans = max(ans, end - start + 1);
-                
+                ans = max(ans, end - start);
+
                 cout << start << " " << end << endl;
             }
 
@@ -27,7 +27,7 @@ public:
         }
         
         
-        return ans - 1;
+        return ans;
 
     }
 };
