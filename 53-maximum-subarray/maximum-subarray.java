@@ -4,7 +4,7 @@ class Solution {
         int overMax = Integer.MIN_VALUE;
         int i = 0;
         while (i < nums.length) {
-            if (currSum < 0) currSum = 0;
+            if (currSum <= 0) currSum = 0;
             
             currSum += nums[i];
             overMax = Math.max(currSum, overMax);
