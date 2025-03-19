@@ -2,32 +2,33 @@ class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
         int n = nums.size();
-        int bp = -1;    //break-point
-        for (int i=n - 2; i >= 0; i--) {
-            if (nums[i] < nums[i + 1]) {
-                bp = i;
+
+        int pivot = n;
+        for (int i=n - 1; i >= 1; i--) {
+            if (nums[i] > nums[i - 1]) {
+                pivot = i;
                 break;
             }
         }
-
-        if (bp == -1) {
+        if (pivot == n) {
             reverse(nums.begin(), nums.end());
-            return;
+            return;    
         }
-        cout << bp << endl;
-        int pivot = bp + 1;
-        for (int i=bp + 1; i < n; i++) {
-            if (nums[i] > nums[bp] && nums[i] <= nums[pivot]) {
-                pivot = i;
+        
+        int idx = pivot;
+        for (int i=n - 1; i >= pivot; i--) {
+            if (nums[pivot - 1] < nums[i]) {
+                idx = i;
+                break;
             }
         }
-        cout << nums[pivot] << endl;
+        
+        swap(nums[pivot - 1], nums[idx]);
+        reverse(nums.begin() + pivot, nums.end());
 
-        swap(nums[pivot], nums[bp]);
-        reverse(nums.begin() + bp + 1, nums.end());
+        // cout << nums << endl;
 
-
-        return;
+        // return nums;
 
     }
 };
