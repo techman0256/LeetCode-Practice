@@ -11,48 +11,26 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* carry = new ListNode(0);
-        ListNode* ans = new ListNode(-1);
-        ListNode* summation = ans;
-        while ( l1 != NULL && l2 != NULL ) {
-            int sum = l1->val + l2->val + carry->val;
+        ListNode* tempHead = new ListNode(-1);
+        ListNode* curr = tempHead;
+        int carry = 0;
+        while ( l1 != NULL || l2 != NULL || carry != 0 ) {
+            int x = l1 ? l1->val : 0;
+            int y = l2 ? l2->val : 0;
+            int sum = x + y + carry;
+            carry = sum / 10;
             int unit = sum % 10;
-            int carry_digit = (sum - unit) / 10;
 
-            carry->val = carry_digit;
-            ListNode* addition = new ListNode(unit);
-            ans->next = addition;
-            ans = ans->next;
-            l1 = l1->next; l2 = l2->next;
+            curr->next = new ListNode(unit);
+            curr = curr->next;
+            l1 = l1 ? l1->next : nullptr; 
+            l2 = l2 ? l2->next : nullptr;
         }
-        while (l1 != NULL) {
-            int sum = l1->val + carry->val;
-            int unit = sum % 10;
-            int carry_digit = (sum - unit) / 10;
-
-            carry->val = carry_digit;
-            ListNode* addition = new ListNode(unit);
-            ans->next = addition;
-            ans = ans->next;
-            l1 = l1->next;
-        }
-        while (l2 != NULL) {
-            int sum = l2->val + carry->val;
-            int unit = sum % 10;
-            int carry_digit = (sum - unit) / 10;
-
-            carry->val = carry_digit;
-            ListNode* addition = new ListNode(unit);
-            ans->next = addition;
-            ans = ans->next;
-            l2 = l2->next;
-        }
-        if (carry->val > 0) {
-            ans->next = carry;
-        }
-        return summation->next;
+        
+        return tempHead->next;
 
     }
 };
 
-// follow-up
+// follow-up 
+// What if the Number is not given in reverse order ?
