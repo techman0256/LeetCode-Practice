@@ -35,11 +35,8 @@ public:
 
         int ans = 0;
         for (auto pair: size) {
-            cout << pair.first << " and " << pair.second << " ";
             ans = max(ans, pair.second);
         }
-        cout << endl;
-
 
         return ans;
     }
