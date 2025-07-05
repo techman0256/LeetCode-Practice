@@ -11,28 +11,33 @@
  */
 class Solution {
 public:
-    void traversal(TreeNode* root, int row, map<int, int> &mpp) {
-        if (root == NULL) {
-            return;
-        }
-
-        traversal(root->left, row + 1, mpp);
-        traversal(root->right, row + 1, mpp);
-        mpp[row] = root->val;
-
-        return;
-    }
     vector<int> rightSideView(TreeNode* root) {
+
+        map<int, int> nodes;
         vector<int> ans;
-        if ( root == NULL ) {
-            return ans;
+        if (root == NULL ) return ans;
+
+        queue<pair<TreeNode*, pair<int, int>>> bfs;
+        bfs.push({root, {0, 0}});
+
+        while (!bfs.empty()) {
+            TreeNode* top = bfs.front().first;
+            int row = bfs.front().second.first;
+            int col = bfs.front().second.second;
+            bfs.pop();
+
+            nodes[row] = top->val;
+
+            if (top->left) {
+                bfs.push({top->left, {row + 1, col - 1}});
+            }
+            if (top->right) {
+                bfs.push({top->right, {row + 1, col + 1}});
+            }
         }
 
-        map<int, int> mpp; 
-       
-        traversal(root, 0, mpp);
-        for (auto it : mpp) {
-            ans.push_back(it.second);
+        for (auto row : nodes ){
+            ans.push_back(row.second);
         }
 
         return ans;
